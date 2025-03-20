@@ -51,6 +51,10 @@ public class UserEntity implements Serializable, UserDetails {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private EmployeeEntity employee;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

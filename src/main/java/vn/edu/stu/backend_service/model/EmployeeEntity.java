@@ -9,6 +9,7 @@ import vn.edu.stu.backend_service.common.EmployeeStatus;
 import vn.edu.stu.backend_service.common.Gender;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -37,7 +38,7 @@ public class EmployeeEntity {
     private String address;
 
     @Column(name = "joining_date")
-    private LocalDateTime JoiningDate;
+    private LocalDateTime joiningDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "employee_status", length = 255)
@@ -50,4 +51,21 @@ public class EmployeeEntity {
     @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToOne(mappedBy = "employee")
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private PositionEntity position;
+
+    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<SalaryEntity> salaries;
+
+    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ContractEntity> contracts;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private DepartmentEntity department;
 }
