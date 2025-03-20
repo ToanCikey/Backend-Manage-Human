@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "tbl_department")
-public class Department {
+@Table(name = "tbl_position")
+public class PositionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,7 +22,7 @@ public class Department {
     private String name;
 
     @Column(name = "description",length = 255)
-    private String description ;
+    private String description;
 
     @Column(name = "created_at", updatable = false, nullable = false)
     @CreationTimestamp
