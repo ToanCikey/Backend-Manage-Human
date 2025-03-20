@@ -74,6 +74,6 @@ public class UserEntity implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return UserStatus.ACTIVE.equals(status);
     }
 }

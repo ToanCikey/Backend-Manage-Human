@@ -1,16 +1,25 @@
 package vn.edu.stu.backend_service.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.stu.backend_service.common.UserStatus;
 import vn.edu.stu.backend_service.controller.request.UserCreationRequest;
 import vn.edu.stu.backend_service.controller.request.UserUpdateRequest;
+import vn.edu.stu.backend_service.controller.response.UserPageResponse;
+import vn.edu.stu.backend_service.controller.response.UserRespone;
 import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
+import vn.edu.stu.backend_service.mapper.UserMapper;
 import vn.edu.stu.backend_service.model.UserEntity;
 import vn.edu.stu.backend_service.repository.UserRepository;
 import vn.edu.stu.backend_service.service.UserService;
+import vn.edu.stu.backend_service.specification.UserSpecification;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +30,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Override
     public UserEntity saveUser(UserCreationRequest user) {
@@ -83,4 +93,30 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public UserPageResponse getAllUsers(String keyword, String sort, int page, int size) {
+        Specification<UserEntity> spec = Specification.where(UserSpecification.hasKeyword(keyword));
+
+        Sort.Direction direction = Sort.Direction.ASC;
+        if ("desc".equalsIgnoreCase(sort)) {
+            direction = Sort.Direction.DESC;
+        }
+        Sort sortBy = Sort.by(direction, "id");
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+        Page<UserEntity> users = userRepository.findAll(spec, pageable);
+
+        List<UserRespone> userResponses = userMapper.toListUserRespone(users.getContent());
+
+        UserPageResponse userPageResponse = new UserPageResponse();
+        userPageResponse.setUsers(userResponses);
+        userPageResponse.setPageNumber(users.getNumber());
+        userPageResponse.setPageSize(users.getSize());
+        userPageResponse.setTotalPages(users.getTotalPages());
+        userPageResponse.setTotalElements(users.getNumberOfElements());
+
+        return userPageResponse;
+    }
+
+
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.stu.backend_service.controller.request.UserCreationRequest;
 import vn.edu.stu.backend_service.controller.request.UserUpdateRequest;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
+import vn.edu.stu.backend_service.controller.response.UserPageResponse;
 import vn.edu.stu.backend_service.controller.response.UserRespone;
 import vn.edu.stu.backend_service.mapper.UserMapper;
 import vn.edu.stu.backend_service.model.UserEntity;
@@ -32,6 +33,17 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
 
+
+    @Operation(summary = "GetAll user by search, sort, page", description = "API get all users to database")
+    @GetMapping("/listbypage")
+    public ResponseSuccess<UserPageResponse> getAllUsersByPageAndSort(@RequestParam(required = false) String keyword,
+                                                                      @RequestParam(required = false) String sort,
+                                                                      @RequestParam(defaultValue = "0") int page,
+                                                                      @RequestParam(defaultValue = "10") int size) {
+        log.info("GetAll User by page and sort: {}");
+        UserPageResponse userPageResponse = userService.getAllUsers(keyword, sort, page, size);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all user by page and sort successful", userPageResponse);
+    }
 
     @Operation(summary = "GetAll User", description = "API get all users to database")
     @GetMapping("/list")
