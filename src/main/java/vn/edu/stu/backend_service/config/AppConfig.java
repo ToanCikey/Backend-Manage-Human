@@ -32,6 +32,7 @@ public class AppConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/users/**").permitAll()
+                        .requestMatchers("/api/v1/positions/**").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
                         .requestMatchers(
                                 "/swagger-ui/**",

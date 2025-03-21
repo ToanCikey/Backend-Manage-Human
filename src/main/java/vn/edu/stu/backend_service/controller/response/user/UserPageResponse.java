@@ -1,6 +1,7 @@
-package vn.edu.stu.backend_service.controller.response;
+package vn.edu.stu.backend_service.controller.response.user;
 
 import lombok.*;
+import vn.edu.stu.backend_service.controller.response.PageResponseAbstract;
 
 import java.io.Serializable;
 import java.util.List;

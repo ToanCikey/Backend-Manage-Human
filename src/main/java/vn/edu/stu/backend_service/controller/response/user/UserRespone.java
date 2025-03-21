@@ -1,8 +1,5 @@
-package vn.edu.stu.backend_service.controller.response;
+package vn.edu.stu.backend_service.controller.response.user;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import vn.edu.stu.backend_service.common.UserStatus;
 import vn.edu.stu.backend_service.common.UserType;

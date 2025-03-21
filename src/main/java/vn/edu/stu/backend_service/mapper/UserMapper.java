@@ -3,7 +3,7 @@ package vn.edu.stu.backend_service.mapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import vn.edu.stu.backend_service.controller.response.UserRespone;
+import vn.edu.stu.backend_service.controller.response.user.UserRespone;
 import vn.edu.stu.backend_service.model.UserEntity;
 
 import java.util.List;
