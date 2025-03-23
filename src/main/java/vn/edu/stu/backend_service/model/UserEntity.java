@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import vn.edu.stu.backend_service.common.UserStatus;
 import vn.edu.stu.backend_service.common.UserType;
@@ -58,7 +59,7 @@ public class UserEntity implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(this.type.name()));
     }
 
     @Override

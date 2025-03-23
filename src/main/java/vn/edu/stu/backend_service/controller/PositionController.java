@@ -14,13 +14,12 @@ import vn.edu.stu.backend_service.controller.request.PositionUpdateRequest;
 import vn.edu.stu.backend_service.controller.response.position.PositionPageRespone;
 import vn.edu.stu.backend_service.controller.response.position.PositionResponse;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
-import vn.edu.stu.backend_service.controller.response.user.UserPageResponse;
 import vn.edu.stu.backend_service.mapper.PositionMapper;
 import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.service.PositionService;
 
 @RestController
-@RequestMapping("/api/v1/positions")
+@RequestMapping("/api/v1/position")
 @Tag(name = "Position Controller")
 @Slf4j(topic = "POSITION-CONTROLLER")
 @RequiredArgsConstructor

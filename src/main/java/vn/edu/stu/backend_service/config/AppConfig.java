@@ -21,31 +21,36 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class AppConfig {
     private final UserDetailsService userDetailsService;
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/v3/api-docs/**",
+            "/v3/api-docs",
+            "/webjars/**",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/api/v1/auth/**"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/v1/users/**").permitAll()
-                        .requestMatchers("/api/v1/positions/**").permitAll()
-                        .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers(
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**",
-                                "/v3/api-docs",
-                                "/webjars/**",
-                                "/swagger-resources/**",
-                                "/configuration/ui",
-                                "/configuration/security"
-                        ).permitAll()
+                        .requestMatchers("/api/v1/user/**").hasAuthority("ADMIN")
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .httpBasic(withDefaults());
+
         return http.build();
     }
 

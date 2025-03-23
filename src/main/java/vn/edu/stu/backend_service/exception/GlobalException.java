@@ -3,6 +3,9 @@ package vn.edu.stu.backend_service.exception;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -72,6 +75,31 @@ public class GlobalException {
         errorResponse.setError(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         errorResponse.setPath(request.getRequestURI());
         errorResponse.setMessage(e.getMessage());
+        return errorResponse;
+    }
+
+    @ExceptionHandler({BadCredentialsException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseError handleInvalidationLoginException(Exception e, HttpServletRequest request) {
+        ResponseError errorResponse = new ResponseError();
+        errorResponse.setTimestamp(new Date());
+        errorResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        errorResponse.setError(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        errorResponse.setPath(request.getRequestURI());
+        errorResponse.setMessage(e.getMessage());
+        return errorResponse;
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseError handleAccessDeniedException(AccessDeniedException e, HttpServletRequest request) {
+        ResponseError errorResponse = new ResponseError();
+        errorResponse.setTimestamp(new Date());
+        errorResponse.setStatus(HttpStatus.FORBIDDEN.value());
+        errorResponse.setError(HttpStatus.FORBIDDEN.getReasonPhrase());
+        errorResponse.setPath(request.getRequestURI());
+        errorResponse.setMessage("You do not have permission to access this resource");
+
         return errorResponse;
     }
 }

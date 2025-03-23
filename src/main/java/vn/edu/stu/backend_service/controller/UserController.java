@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.stu.backend_service.controller.request.UserCreationRequest;
@@ -23,14 +22,13 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/user")
 @Tag(name = "User Controller")
 @Slf4j(topic = "USER-CONTROLLER")
 @RequiredArgsConstructor
 @Validated
 public class UserController {
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
 
 

@@ -2,7 +2,6 @@ package vn.edu.stu.backend_service.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,17 +13,15 @@ import vn.edu.stu.backend_service.controller.request.PositionRequest;
 import vn.edu.stu.backend_service.controller.request.PositionUpdateRequest;
 import vn.edu.stu.backend_service.controller.response.position.PositionPageRespone;
 import vn.edu.stu.backend_service.controller.response.position.PositionResponse;
-import vn.edu.stu.backend_service.controller.response.user.UserPageResponse;
-import vn.edu.stu.backend_service.controller.response.user.UserRespone;
+
 import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.PositionMapper;
 import vn.edu.stu.backend_service.model.PositionEntity;
-import vn.edu.stu.backend_service.model.UserEntity;
 import vn.edu.stu.backend_service.repository.PositionRepository;
 import vn.edu.stu.backend_service.service.PositionService;
 import vn.edu.stu.backend_service.specification.PositionSpecification;
-import vn.edu.stu.backend_service.specification.UserSpecification;
+
 
 import java.util.List;
 import java.util.Optional;
