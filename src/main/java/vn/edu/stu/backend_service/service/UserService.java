@@ -15,7 +15,7 @@ public interface UserService {
     void updateUser(UserUpdateRequest user);
     UserEntity getUserByEmail(String email);
     UserEntity getUserByUserName(String username);
-    UserEntity getUserById(long id);
+    UserEntity getUserById(Long id);
     List<UserEntity> getAllUsers();
     UserPageResponse getAllUsers(String keyword, String sort, int page, int size);
 }

@@ -7,7 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -34,5 +35,5 @@ public class PositionEntity {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "position",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<EmployeeEntity> employees;
+    private List<EmployeeEntity> employees;
 }

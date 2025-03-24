@@ -1,5 +1,6 @@
 package vn.edu.stu.backend_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,8 @@ import vn.edu.stu.backend_service.common.EmployeeStatus;
 import vn.edu.stu.backend_service.common.Gender;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -52,7 +54,8 @@ public class EmployeeEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @ManyToOne
@@ -60,10 +63,10 @@ public class EmployeeEntity {
     private PositionEntity position;
 
     @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<SalaryEntity> salaries;
+    private List<SalaryEntity> salaries;
 
     @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ContractEntity> contracts;
+    private List<ContractEntity> contracts;
 
     @ManyToOne
     @JoinColumn(name = "department_id")

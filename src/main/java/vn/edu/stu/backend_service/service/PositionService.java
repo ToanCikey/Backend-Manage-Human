@@ -6,8 +6,7 @@ import vn.edu.stu.backend_service.controller.request.PositionUpdateRequest;
 import vn.edu.stu.backend_service.controller.response.position.PositionPageRespone;
 import vn.edu.stu.backend_service.model.PositionEntity;
 
-import java.util.List;
-import java.util.Optional;
+
 
 public interface PositionService {
     PositionEntity savePosition(PositionRequest request);

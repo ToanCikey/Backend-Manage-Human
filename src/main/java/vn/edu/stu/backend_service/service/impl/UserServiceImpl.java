@@ -76,17 +76,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("User not found"));
+        return userRepository.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("User with email = " + email +" not found"));
     }
 
     @Override
     public UserEntity getUserByUserName(String username) {
-        return userRepository.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("User not found"));
+        return userRepository.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("User with username = " + username +" not found"));
     }
 
     @Override
-    public UserEntity getUserById(long id) {
-        return userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
+    public UserEntity getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User with id = " + id +" not found"));
     }
 
     @Override
@@ -98,11 +98,9 @@ public class UserServiceImpl implements UserService {
     public UserPageResponse getAllUsers(String keyword, String sort, int page, int size) {
         Specification<UserEntity> spec = Specification.where(UserSpecification.hasKeyword(keyword));
 
-        Sort.Direction direction = Sort.Direction.ASC;
-        if ("desc".equalsIgnoreCase(sort)) {
-            direction = Sort.Direction.DESC;
-        }
+        Sort.Direction direction = ("desc".equalsIgnoreCase(sort)) ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(direction, "id");
+
         Pageable pageable = PageRequest.of(page, size, sortBy);
         Page<UserEntity> users = userRepository.findAll(spec, pageable);
 
@@ -113,7 +111,7 @@ public class UserServiceImpl implements UserService {
         userPageResponse.setPageNumber(users.getNumber());
         userPageResponse.setPageSize(users.getSize());
         userPageResponse.setTotalPages(users.getTotalPages());
-        userPageResponse.setTotalElements(users.getNumberOfElements());
+        userPageResponse.setTotalElements(users.getTotalElements());
 
         return userPageResponse;
     }

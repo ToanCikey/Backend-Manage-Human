@@ -80,11 +80,9 @@ public class PositionServiceImpl implements PositionService{
     public PositionPageRespone getAllPositions(String keyword, String sort, int page, int size) {
         Specification<PositionEntity> spec = Specification.where(PositionSpecification.hasKeyword(keyword));
 
-        Sort.Direction direction = Sort.Direction.ASC;
-        if ("desc".equalsIgnoreCase(sort)) {
-            direction = Sort.Direction.DESC;
-        }
+        Sort.Direction direction = ("desc".equalsIgnoreCase(sort)) ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(direction, "id");
+
         Pageable pageable = PageRequest.of(page, size, sortBy);
         Page<PositionEntity> positionEntities = positionRepository.findAll(spec, pageable);
 
@@ -95,7 +93,7 @@ public class PositionServiceImpl implements PositionService{
         positionPageRespone.setPageNumber(positionEntities.getNumber());
         positionPageRespone.setPageSize(positionEntities.getSize());
         positionPageRespone.setTotalPages(positionEntities.getTotalPages());
-        positionPageRespone.setTotalElements(positionEntities.getNumberOfElements());
+        positionPageRespone.setTotalElements(positionEntities.getTotalElements());
 
         return positionPageRespone;
     }

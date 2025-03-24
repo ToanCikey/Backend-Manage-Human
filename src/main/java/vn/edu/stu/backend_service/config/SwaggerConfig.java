@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("OPEN API")
+                .info(new Info().title("BACKEND SERVICE WEBSITE MANAGE HUMAN")
                         .version("1.0")
                         .description("API Documentation with OpenAPI"))
                 .addSecurityItem(new SecurityRequirement().addList("basicAuth"))

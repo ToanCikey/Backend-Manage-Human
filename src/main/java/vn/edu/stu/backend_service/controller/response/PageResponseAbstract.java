@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 
 public class PageResponseAbstract {
-    private int pageNumber;
-    private int pageSize;
-    private int totalPages;
-    private int totalElements;
+    private long pageNumber;
+    private long pageSize;
+    private long totalPages;
+    private long totalElements;
 }
