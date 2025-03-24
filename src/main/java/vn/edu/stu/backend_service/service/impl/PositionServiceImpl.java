@@ -53,7 +53,11 @@ public class PositionServiceImpl implements PositionService{
     public void deletePosition(Long id) {
         PositionEntity position = getPositionById(id);
         if(position != null) {
-            positionRepository.delete(position);
+            if(position.getEmployees().isEmpty()){
+                positionRepository.delete(position);
+            }else{
+                throw new InvalidDataException("Positions with employees cannot be deleted");
+            }
         }
     }
 

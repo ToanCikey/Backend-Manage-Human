@@ -8,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -24,7 +23,7 @@ public class DepartmentEntity {
     private String name;
 
     @Column(name = "description",length = 255)
-    private String description ;
+    private String description;
 
     @Column(name = "created_at", updatable = false, nullable = false)
     @CreationTimestamp
