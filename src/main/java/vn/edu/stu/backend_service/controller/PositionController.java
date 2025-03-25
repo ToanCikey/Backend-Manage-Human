@@ -60,6 +60,6 @@ public class PositionController {
                                                                          @RequestParam(defaultValue = "10") int size) {
         log.info("GetAll position by page and sort: {}");
         PositionPageRespone positionPageRespone = positionService.getAllPositions(keyword, sort, page, size);
-        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all user by page and sort successful", positionPageRespone);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all position by page and sort successful", positionPageRespone);
     }
 }

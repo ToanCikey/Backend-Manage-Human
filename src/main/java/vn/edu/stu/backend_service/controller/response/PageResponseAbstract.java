@@ -7,7 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class PageResponseAbstract {
     private long pageNumber;
     private long pageSize;

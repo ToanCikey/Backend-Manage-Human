@@ -14,7 +14,6 @@ import vn.edu.stu.backend_service.controller.request.DepartmentUpdate;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
 import vn.edu.stu.backend_service.controller.response.department.DepartmentPageResponse;
 import vn.edu.stu.backend_service.controller.response.department.DepartmentResponse;
-import vn.edu.stu.backend_service.controller.response.user.UserPageResponse;
 import vn.edu.stu.backend_service.mapper.DepartmentMapper;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
 import vn.edu.stu.backend_service.service.DepartmentService;
@@ -22,7 +21,7 @@ import vn.edu.stu.backend_service.service.DepartmentService;
 @RestController
 @RequestMapping("/api/v1/department")
 @Tag(name = "Department Controller")
-@Slf4j(topic = "Department-CONTROLLER")
+@Slf4j(topic = "DEPARTMENT-CONTROLLER")
 @RequiredArgsConstructor
 @Validated
 public class DepartmentController {
