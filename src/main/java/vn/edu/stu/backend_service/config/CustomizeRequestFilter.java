@@ -13,6 +13,7 @@ import vn.edu.stu.backend_service.service.UserServiceDetail;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Base64;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -23,6 +24,17 @@ public class CustomizeRequestFilter extends OncePerRequestFilter {
 
     private final UserServiceDetail userServiceDetail;
     private final PasswordEncoder passwordEncoder;
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-ui/.*",
+            "/swagger-ui.html",
+            "/v3/api-docs/.*",
+            "/v3/api-docs",
+            "/webjars/.*",
+            "/swagger-resources/.*",
+            "/configuration/ui",
+            "/configuration/security",
+            "/api/v1/auth/.*"
+    };
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -54,8 +66,10 @@ public class CustomizeRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getRequestURI().startsWith("/api/v1/auth/");
+        String path = request.getRequestURI();
+        return Arrays.stream(AUTH_WHITELIST).anyMatch(path::matches);
     }
+
 
 
     private String[] extractCredentials(String authHeader) {
