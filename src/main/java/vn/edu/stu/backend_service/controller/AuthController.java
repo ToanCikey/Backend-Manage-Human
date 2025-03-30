@@ -32,7 +32,7 @@ public class AuthController {
     private final UserService userService;
 
     @Operation(summary = "Login", description = "API login user ")
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseSuccess<UserRespone> login(@Valid @RequestBody LoginRequest loginRequest) {
         log.info("Login user: {}", loginRequest);
         UserEntity userEntity = authService.login(loginRequest);

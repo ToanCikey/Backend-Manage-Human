@@ -6,14 +6,16 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class LoginRequest {
+public class LoginRequest implements Serializable {
     @Email
-    @NotBlank(message = "email must be not blank")
+    @NotBlank(message = "Email must be not blank")
     private String email;
 
-    @NotBlank(message = "password must be not blank")
-    @Size(min = 6, message = "password minimum 6 characters")
+    @NotBlank(message = "Password must be not blank")
+    @Size(min = 6, message = "Password minimum 6 characters")
     private String password;
 }

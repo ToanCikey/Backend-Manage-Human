@@ -18,6 +18,9 @@ public class SalaryEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name", length = 255)
+    private String name;
+
     @Column(name = "basic_salary", length = 255)
     private Double basicSalary;
 

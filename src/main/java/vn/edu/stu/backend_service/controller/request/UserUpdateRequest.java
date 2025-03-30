@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Setter
 public class UserUpdateRequest implements Serializable {
     @Email
-    @NotBlank(message = "email must be not blank")
+    @NotBlank(message = "Email must be not blank")
     private String email;
 
     @NotNull(message = "Usertype must not be null")
