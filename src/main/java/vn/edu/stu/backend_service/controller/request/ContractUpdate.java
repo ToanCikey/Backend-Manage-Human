@@ -28,4 +28,7 @@ public class ContractUpdate implements Serializable {
     @NotBlank(message = "Notes must be not blank")
     @Size(min = 5, message = "Notes minimum 5 characters")
     private String notes;
+
+    @Min(value = 1, message = "EmployeeId must be at least 1")
+    private Long employeeId;
 }

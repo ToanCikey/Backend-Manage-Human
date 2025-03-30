@@ -17,8 +17,10 @@ import vn.edu.stu.backend_service.controller.response.position.PositionResponse;
 import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.PositionMapper;
+import vn.edu.stu.backend_service.model.DepartmentEntity;
 import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.repository.PositionRepository;
+import vn.edu.stu.backend_service.service.DepartmentService;
 import vn.edu.stu.backend_service.service.PositionService;
 import vn.edu.stu.backend_service.specification.PositionSpecification;
 
@@ -32,6 +34,7 @@ import java.util.Optional;
 public class PositionServiceImpl implements PositionService{
     private final PositionRepository positionRepository;
     private final PositionMapper positionMapper;
+    private final DepartmentService departmentService;
 
     @Transactional
     @Override
@@ -44,7 +47,13 @@ public class PositionServiceImpl implements PositionService{
         PositionEntity positionEntity = new PositionEntity();
         positionEntity.setName(request.getName());
         positionEntity.setDescription(request.getDescription());
+
+        if(request.getDepartmentId() != null) {
+            DepartmentEntity department = departmentService.getDepartmentById(request.getDepartmentId());
+            positionEntity.setDepartment(department);
+        }
         positionRepository.save(positionEntity);
+
         log.info("Saving position {}", request);
         return positionEntity;
     }
@@ -56,17 +65,29 @@ public class PositionServiceImpl implements PositionService{
             if(position.getEmployees().isEmpty()){
                 positionRepository.delete(position);
             }else{
-                throw new InvalidDataException("Positions with employees cannot be deleted");
+                throw new InvalidDataException("Cannot delete position because it contains employee table constraints");
             }
         }
     }
 
     @Override
     public void updatePosition(PositionUpdateRequest request) {
+        log.info("Begin update position {}", request);
+
         PositionEntity position = getPositionById(request.getId());
-        position.setName(request.getName());
-        position.setDescription(request.getDescription());
-        positionRepository.save(position);
+        if(position != null) {
+            position.setName(request.getName());
+            position.setDescription(request.getDescription());
+
+            if(request.getDepartmentId() != null) {
+                DepartmentEntity department = departmentService.getDepartmentById(request.getDepartmentId());
+                position.setDepartment(department);
+            }
+            positionRepository.save(position);
+
+            log.info("Updating position {}", request);
+        }
+
     }
 
 

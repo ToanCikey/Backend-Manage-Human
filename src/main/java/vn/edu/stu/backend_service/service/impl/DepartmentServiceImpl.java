@@ -68,10 +68,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         DepartmentEntity departmentEntity = getDepartmentById(id);
         if (departmentEntity != null) {
-            if(departmentEntity.getEmployees().isEmpty()) {
+            if(departmentEntity.getEmployees().isEmpty() && departmentEntity.getPositions().isEmpty()) {
                 departmentRepository.delete(departmentEntity);
             }else{
-                throw new InvalidDataException("Department has employees that cannot be deleted");
+                throw new InvalidDataException("Cannot delete department because it contains employee and position table constraints");
             }
         }
 

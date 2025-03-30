@@ -13,12 +13,17 @@ import vn.edu.stu.backend_service.controller.request.EmployeeRequest;
 import vn.edu.stu.backend_service.controller.request.EmployeeUpdate;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
+import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.EmployeeMapper;
+import vn.edu.stu.backend_service.model.DepartmentEntity;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
+import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.model.UserEntity;
 import vn.edu.stu.backend_service.repository.EmployeeRepository;
+import vn.edu.stu.backend_service.service.DepartmentService;
 import vn.edu.stu.backend_service.service.EmployeeService;
+import vn.edu.stu.backend_service.service.PositionService;
 import vn.edu.stu.backend_service.service.UserService;
 import vn.edu.stu.backend_service.specification.EmployeeSpecification;
 
@@ -31,6 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final UserService userService;
     private final EmployeeMapper employeeMapper;
+    private final PositionService positionService;
+    private final DepartmentService departmentService;
 
     @Override
     public EmployeeEntity addEmployee(EmployeeRequest employee) {
@@ -47,6 +54,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(employee.getUserId() != null) {
             UserEntity user = userService.getUserById(employee.getUserId());
             employeeEntity.setUser(user);
+        }
+        if(employee.getPositionId() != null){
+            PositionEntity position = positionService.getPositionById(employee.getPositionId());
+            employeeEntity.setPosition(position);
+        }
+        if(employee.getDepartmentId() != null){
+            DepartmentEntity department = departmentService.getDepartmentById(employee.getDepartmentId());
+            employeeEntity.setDepartment(department);
         }
 
         employeeRepository.save(employeeEntity);
@@ -72,6 +87,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                 UserEntity user = userService.getUserById(employee.getUserId());
                 employeeEntity.setUser(user);
             }
+            if(employee.getPositionId() != null){
+                PositionEntity position = positionService.getPositionById(employee.getPositionId());
+                employeeEntity.setPosition(position);
+            }
+            if(employee.getDepartmentId() != null){
+                DepartmentEntity department = departmentService.getDepartmentById(employee.getDepartmentId());
+                employeeEntity.setDepartment(department);
+            }
 
             employeeRepository.save(employeeEntity);
             log.info("Updating employee {}", employee);
@@ -81,8 +104,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Long id) {
         EmployeeEntity employeeEntity = getEmployeeById(id);
-        if(employeeEntity != null) {
-            employeeRepository.delete(employeeEntity);
+        if(employeeEntity != null ) {
+            if(employeeEntity.getSalaries().isEmpty() && employeeEntity.getContracts().isEmpty()){
+                employeeRepository.delete(employeeEntity);
+            }else {
+                throw new InvalidDataException("Cannot delete employee because it contains salaries and contracts table constraints");
+            }
         }
     }
 

@@ -1,9 +1,6 @@
 package vn.edu.stu.backend_service.controller.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import vn.edu.stu.backend_service.common.ContractType;
@@ -28,4 +25,8 @@ public class ContractRequest implements Serializable {
     @NotBlank(message = "Notes must be not blank")
     @Size(min = 5, message = "Notes minimum 5 characters")
     private String notes;
+
+    @NotNull(message = "EmployeeId must be not null")
+    @Min(value = 1, message = "EmployeeId must be at least 1")
+    private Long employeeId;
 }

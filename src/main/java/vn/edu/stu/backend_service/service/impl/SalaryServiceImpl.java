@@ -34,21 +34,21 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public SalaryEntity addSalary(SalaryRequest request) {
         log.info("Begin add salary {}", request);
-        EmployeeEntity employee = employeeService.getEmployeeById(request.getEmployeeId());
-        if (employee != null) {
-            SalaryEntity salaryEntity = new SalaryEntity();
-            salaryEntity.setName(request.getName());
-            salaryEntity.setBasicSalary(request.getBasicSalary());
-            salaryEntity.setAllowance(request.getAllowance());
-            salaryEntity.setEffectiveDate(request.getEffectiveDate());
+
+        SalaryEntity salaryEntity = new SalaryEntity();
+        salaryEntity.setName(request.getName());
+        salaryEntity.setBasicSalary(request.getBasicSalary());
+        salaryEntity.setAllowance(request.getAllowance());
+        salaryEntity.setEffectiveDate(request.getEffectiveDate());
+
+        if (request.getEmployeeId() != null) {
+            EmployeeEntity employee = employeeService.getEmployeeById(request.getEmployeeId());
             salaryEntity.setEmployee(employee);
-
-            salaryRepository.save(salaryEntity);
-
-            log.info("Saving add salary {}", request);
-            return salaryEntity;
         }
-        return null;
+        salaryRepository.save(salaryEntity);
+
+        log.info("Saving add salary {}", request);
+        return salaryEntity;
     }
 
     @Override
@@ -56,18 +56,20 @@ public class SalaryServiceImpl implements SalaryService {
         log.info("Begin update salary {}", request);
 
         SalaryEntity salary = getSalaryById(request.getId());
-        salary.setName(request.getName());
-        salary.setBasicSalary(request.getBasicSalary());
-        salary.setAllowance(request.getAllowance());
-        salary.setEffectiveDate(request.getEffectiveDate());
+        if(salary != null) {
+            salary.setName(request.getName());
+            salary.setBasicSalary(request.getBasicSalary());
+            salary.setAllowance(request.getAllowance());
+            salary.setEffectiveDate(request.getEffectiveDate());
 
-        if(request.getEmployeeId() != null) {
-            EmployeeEntity employee = employeeService.getEmployeeById(request.getEmployeeId());
-            salary.setEmployee(employee);
+            if(request.getEmployeeId() != null) {
+                EmployeeEntity employee = employeeService.getEmployeeById(request.getEmployeeId());
+                salary.setEmployee(employee);
+            }
+            salaryRepository.save(salary);
+
+            log.info("Saving update salary {}", request);
         }
-        salaryRepository.save(salary);
-
-        log.info("Saving update salary {}", request);
     }
 
     @Override

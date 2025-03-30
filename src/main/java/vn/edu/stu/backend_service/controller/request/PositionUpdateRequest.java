@@ -23,4 +23,7 @@ public class PositionUpdateRequest implements Serializable {
     @NotBlank(message = "Description must be not blank")
     @Size(min = 5, message = "Description minimum 5 characters")
     private String description;
+
+    @Min(value = 1, message = "DepartmentId must be at least 1")
+    private Long departmentId;
 }

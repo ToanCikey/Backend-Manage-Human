@@ -35,4 +35,7 @@ public class DepartmentEntity {
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<EmployeeEntity> employees;
+
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PositionEntity> positions;
 }

@@ -15,8 +15,10 @@ import vn.edu.stu.backend_service.controller.response.contract.ContractResponse;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.ContractMapper;
 import vn.edu.stu.backend_service.model.ContractEntity;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.repository.ContractRepository;
 import vn.edu.stu.backend_service.service.ContractService;
+import vn.edu.stu.backend_service.service.EmployeeService;
 import vn.edu.stu.backend_service.specification.ContractSpecification;
 
 import java.util.List;
@@ -28,6 +30,7 @@ import java.util.List;
 public class ContractServiceImpl implements ContractService {
     private final ContractRepository contractRepository;
     private final ContractMapper contractMapper;
+    private final EmployeeService employeeService;
 
     @Override
     public ContractEntity addContract(ContractRequest contract) {
@@ -38,8 +41,12 @@ public class ContractServiceImpl implements ContractService {
         contractEntity.setStartDate(contract.getStartDate());
         contractEntity.setEndDate(contract.getEndDate());
         contractEntity.setNotes(contract.getNotes());
-        contractRepository.save(contractEntity);
 
+        if(contract.getEmployeeId() != null) {
+            EmployeeEntity employee = employeeService.getEmployeeById(contract.getEmployeeId());
+            contractEntity.setEmployee(employee);
+        }
+        contractRepository.save(contractEntity);
         log.info("Saving contract {}", contract);
 
         return contractEntity;
@@ -56,6 +63,10 @@ public class ContractServiceImpl implements ContractService {
             contractEntity.setEndDate(contract.getEndDate());
             contractEntity.setNotes(contract.getNotes());
 
+            if(contract.getEmployeeId() != null){
+                EmployeeEntity employee = employeeService.getEmployeeById(contract.getEmployeeId());
+                contractEntity.setEmployee(employee);
+            }
             contractRepository.save(contractEntity);
         }
         log.info("Updating contract {}", contract);

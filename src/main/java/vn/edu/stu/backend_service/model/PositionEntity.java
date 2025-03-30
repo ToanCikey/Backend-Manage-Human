@@ -36,4 +36,8 @@ public class PositionEntity {
 
     @OneToMany(mappedBy = "position",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EmployeeEntity> employees;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private DepartmentEntity department;
 }
