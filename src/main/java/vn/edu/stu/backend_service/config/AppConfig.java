@@ -44,6 +44,7 @@ public class AppConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomizeRequestFilter customizeRequestFilter,
                                                    CustomAccessDeniedHandler customAccessDeniedHandler) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
+                .cors(withDefaults())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/user/**").hasAuthority("ADMIN")
                         .requestMatchers(AUTH_WHITELIST).permitAll()
