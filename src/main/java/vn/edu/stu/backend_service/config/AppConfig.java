@@ -68,20 +68,20 @@ public class AppConfig {
 //                requestMatchers("/actuator/**", "/v3/**", "/webjars/**", "/swagger-ui*/*swagger-initializer.js", "/swagger-ui*/**", "/favicon.ico");
 //    }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/api/v1/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*")
-                        .allowCredentials(false)
-                        .maxAge(3600);
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(@NonNull CorsRegistry registry) {
+//                registry.addMapping("/api/v1/**")
+//                        .allowedOrigins("*")
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                        .allowedHeaders("*")
+//                        .allowCredentials(false)
+//                        .maxAge(3600);
+//            }
+//        };
+//    }
 
     // cấu hình cho spring biết username,password ở database
     @Bean
