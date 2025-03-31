@@ -112,4 +112,9 @@ public class ContractServiceImpl implements ContractService {
     public ContractEntity getContractById(Long id) {
         return contractRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Contract with " + id + " not found"));
     }
+
+    @Override
+    public List<ContractEntity> getAllContracts() {
+        return contractRepository.findAll();
+    }
 }

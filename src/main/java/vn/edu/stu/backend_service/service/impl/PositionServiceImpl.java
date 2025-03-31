@@ -122,4 +122,9 @@ public class PositionServiceImpl implements PositionService{
 
         return positionPageRespone;
     }
+
+    @Override
+    public List<PositionEntity> getAllPositions() {
+        return positionRepository.findAll();
+    }
 }

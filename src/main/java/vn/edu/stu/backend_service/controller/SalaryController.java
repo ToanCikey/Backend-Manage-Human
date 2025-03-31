@@ -18,6 +18,8 @@ import vn.edu.stu.backend_service.mapper.SalaryMapper;
 import vn.edu.stu.backend_service.model.SalaryEntity;
 import vn.edu.stu.backend_service.service.SalaryService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/salary")
 @Tag(name = "Salary Controller")
@@ -61,5 +63,14 @@ public class SalaryController {
         log.info("GetAll salaries by page and sort: {}");
         SalaryPageResponse salaryPageResponse = salaryService.getAllSalaries(keyword, sort, page, size);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all salaries by page and sort successful", salaryPageResponse);
+    }
+
+    @Operation(summary = "GetAll salary ", description = "API get all salaries to database")
+    @GetMapping("/list")
+    public ResponseSuccess<?> getAllSalary() {
+        log.info("GetAll salaries: {}");
+
+        List<SalaryEntity> salaries = salaryService.getAllSalaries();
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all salaries successful", salaryMapper.toMapSalaryList(salaries));
     }
 }

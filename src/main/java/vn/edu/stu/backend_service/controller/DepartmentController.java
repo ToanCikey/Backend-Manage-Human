@@ -18,6 +18,8 @@ import vn.edu.stu.backend_service.mapper.DepartmentMapper;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
 import vn.edu.stu.backend_service.service.DepartmentService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/department")
 @Tag(name = "Department Controller")
@@ -64,4 +66,14 @@ public class DepartmentController {
 
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all department by page and sort successful", departmentPageResponse);
     }
+
+    @Operation(summary = "GetAll department", description = "API get all departments to database")
+    @GetMapping("/list")
+    public ResponseSuccess<?> getAllDepartments() {
+        log.info("GetAll User by department : {}");
+
+        List<DepartmentEntity> departmentEntities = departmentService.getAllDepartments();
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all department successful", departmentMapper.toMapListDepartment(departmentEntities));
+    }
+
 }

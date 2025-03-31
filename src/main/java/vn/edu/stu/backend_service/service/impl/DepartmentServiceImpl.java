@@ -110,4 +110,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         return departmentPageResponse;
     }
+
+    @Override
+    public List<DepartmentEntity> getAllDepartments() {
+        return departmentRepository.findAll();
+    }
 }

@@ -18,6 +18,8 @@ import vn.edu.stu.backend_service.mapper.ContractMapper;
 import vn.edu.stu.backend_service.model.ContractEntity;
 import vn.edu.stu.backend_service.service.ContractService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/contract")
 @Tag(name = "Contract Controller")
@@ -64,4 +66,15 @@ public class ContractController {
 
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all contracts by page and sort successful", contractPageResponse);
     }
+
+    @Operation(summary = "Get all contracts", description = "API get all contracts to database")
+    @GetMapping("/list")
+    public ResponseSuccess<List<ContractResponse>> getAllContracts() {
+        log.info("GetAll Contract : {}");
+
+        List<ContractEntity> contractEntities = contractService.getAllContracts();
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all contracts successful", contractMapper.toMapListContract(contractEntities));
+    }
+
+
 }

@@ -18,6 +18,8 @@ import vn.edu.stu.backend_service.mapper.PositionMapper;
 import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.service.PositionService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/position")
 @Tag(name = "Position Controller")
@@ -61,5 +63,14 @@ public class PositionController {
         log.info("GetAll position by page and sort: {}");
         PositionPageRespone positionPageRespone = positionService.getAllPositions(keyword, sort, page, size);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all position by page and sort successful", positionPageRespone);
+    }
+
+    @Operation(summary = "GetAll position", description = "API get all positions to database")
+    @GetMapping("/list")
+    public ResponseSuccess<?> getAllPosition() {
+        log.info("GetAll position: {}");
+
+        List<PositionEntity> positionEntities = positionService.getAllPositions();
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all position successful", positionMapper.toPositionResponesList(positionEntities));
     }
 }

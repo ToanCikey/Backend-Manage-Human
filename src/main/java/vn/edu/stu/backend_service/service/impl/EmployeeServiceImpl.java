@@ -140,4 +140,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return employeePageResponse;
     }
+
+    @Override
+    public List<EmployeeEntity> getAllEmployee() {
+        return employeeRepository.findAll();
+    }
 }

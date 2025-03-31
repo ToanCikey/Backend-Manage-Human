@@ -111,4 +111,9 @@ public class SalaryServiceImpl implements SalaryService {
     public SalaryEntity getSalaryById(Long id) {
         return salaryRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Salary with id " + id + " not found"));
     }
+
+    @Override
+    public List<SalaryEntity> getAllSalaries() {
+        return salaryRepository.findAll();
+    }
 }

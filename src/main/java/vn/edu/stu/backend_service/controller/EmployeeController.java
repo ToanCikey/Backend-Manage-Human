@@ -14,10 +14,11 @@ import vn.edu.stu.backend_service.controller.request.EmployeeUpdate;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
-import vn.edu.stu.backend_service.controller.response.user.UserPageResponse;
 import vn.edu.stu.backend_service.mapper.EmployeeMapper;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.service.EmployeeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/employee")
@@ -62,5 +63,14 @@ public class EmployeeController {
         log.info("GetAll Employee by page and sort: {}");
         EmployeePageResponse employeePageResponse = employeeService.getAllEmployee(keyword, sort, page, size);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all employee by page and sort successful", employeePageResponse);
+    }
+
+    @Operation(summary = "GetAll employee ", description = "API get all employee to database")
+    @GetMapping("/list")
+    public ResponseSuccess<?> getAllEmployee() {
+        log.info("GetAll Employee: {}");
+
+        List<EmployeeEntity> employeeEntities = employeeService.getAllEmployee();
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all employee successful", employeeMapper.toMapListEmployee(employeeEntities));
     }
 }

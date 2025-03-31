@@ -5,6 +5,8 @@ import vn.edu.stu.backend_service.controller.request.EmployeeUpdate;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
 
+import java.util.List;
+
 
 public interface EmployeeService {
     EmployeeEntity addEmployee(EmployeeRequest employee);
@@ -12,4 +14,5 @@ public interface EmployeeService {
     void deleteEmployee(Long id);
     EmployeeEntity getEmployeeById(Long id);
     EmployeePageResponse getAllEmployee(String keyword, String sort, int page, int size);
+    List<EmployeeEntity> getAllEmployee();
 }

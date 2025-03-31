@@ -74,4 +74,5 @@ public class UserController {
         userService.updateUser(request);
         return new ResponseSuccess<>(HttpStatus.NO_CONTENT.value(),"Update User successful");
     }
+
 }
