@@ -15,6 +15,7 @@ import vn.edu.stu.backend_service.controller.response.position.PositionPageRespo
 import vn.edu.stu.backend_service.controller.response.position.PositionResponse;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
 import vn.edu.stu.backend_service.mapper.PositionMapper;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.service.PositionService;
 
@@ -72,5 +73,14 @@ public class PositionController {
 
         List<PositionEntity> positionEntities = positionService.getAllPositions();
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all position successful", positionMapper.toPositionResponesList(positionEntities));
+    }
+
+    @Operation(summary = "Get all employee by position id", description = "API get all employee by position id to database")
+    @GetMapping("/position-employee/{id}")
+    public ResponseSuccess<?> getAllEmployeeByPosition(@Min(1) @PathVariable Long id) {
+        log.info("Get all employee by position id: {}");
+
+        List<EmployeeEntity> entities = positionService.getEmployeeByPositionId(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all employee by position id successful", positionMapper.toEmployeeByPositionId(entities));
     }
 }

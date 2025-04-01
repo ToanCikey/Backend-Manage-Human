@@ -18,6 +18,7 @@ import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.PositionMapper;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.repository.PositionRepository;
 import vn.edu.stu.backend_service.service.DepartmentService;
@@ -126,5 +127,14 @@ public class PositionServiceImpl implements PositionService{
     @Override
     public List<PositionEntity> getAllPositions() {
         return positionRepository.findAll();
+    }
+
+    @Override
+    public List<EmployeeEntity> getEmployeeByPositionId(Long id) {
+        PositionEntity position = getPositionById(id);
+        if(position != null) {
+            return position.getEmployees();
+        }
+        return null;
     }
 }
