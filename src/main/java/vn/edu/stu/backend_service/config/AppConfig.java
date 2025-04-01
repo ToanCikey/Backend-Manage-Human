@@ -75,7 +75,7 @@ public class AppConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "http://localhost:5173", "https://dh52113550.id.vn")
+                        .allowedOrigins("http://localhost:3000", "http://localhost:5173", "https://dh52113550.id.vn", "https://fe-qlns-production.up.railway.app")
                         .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
                         .allowedHeaders("*")
                         .allowCredentials(true)
