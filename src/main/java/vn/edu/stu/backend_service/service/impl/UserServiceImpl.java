@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.stu.backend_service.common.UserStatus;
+import vn.edu.stu.backend_service.controller.request.PassWordRequest;
 import vn.edu.stu.backend_service.controller.request.UserCreationRequest;
 import vn.edu.stu.backend_service.controller.request.UserUpdateRequest;
 import vn.edu.stu.backend_service.controller.response.user.UserPageResponse;
@@ -68,7 +69,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword() {
+    public void changePassword(PassWordRequest request) {
+        UserEntity userEntity = getUserByEmail(request.getEmail());
+
+        if(userEntity != null){
+            if(passwordEncoder.matches(request.getOldPassword(), userEntity.getPassword())){
+                if(request.getNewPassword().equals(request.getConfirmPassword())){
+                    userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
+                    userRepository.save(userEntity);
+                }else {
+                    throw new InvalidDataException("Password and Confirm password do not match");
+                }
+            }else {
+                throw new InvalidDataException("Incorrect password");
+            }
+        }
 
     }
 
@@ -114,6 +129,11 @@ public class UserServiceImpl implements UserService {
         userPageResponse.setTotalElements(users.getTotalElements());
 
         return userPageResponse;
+    }
+
+    @Override
+    public UserEntity getUserByDetail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User with email = " + email +" not found"));
     }
 
 

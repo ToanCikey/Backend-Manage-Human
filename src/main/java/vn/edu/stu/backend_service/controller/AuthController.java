@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.edu.stu.backend_service.controller.request.LoginRequest;
+import vn.edu.stu.backend_service.controller.request.PassWordRequest;
 import vn.edu.stu.backend_service.controller.request.UserCreationRequest;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
 import vn.edu.stu.backend_service.controller.response.user.UserRespone;
@@ -45,5 +46,14 @@ public class AuthController {
         log.info("Create User: {}", request);
         UserEntity user = userService.saveUser(request);
         return new ResponseSuccess<>(HttpStatus.CREATED.value(),"Create User successful", userMapper.toUserRespone(user));
+    }
+
+    @Operation(summary = "Change password ", description = "API change password user to database")
+    @PostMapping("/change-password")
+    public ResponseSuccess<?> changePassword(@Valid @RequestBody PassWordRequest request) {
+        log.info("Change password to user: {}");
+
+        userService.changePassword(request);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Change password user successful");
     }
 }

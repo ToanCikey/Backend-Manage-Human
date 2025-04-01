@@ -4,6 +4,8 @@ import vn.edu.stu.backend_service.controller.request.DepartmentRequest;
 import vn.edu.stu.backend_service.controller.request.DepartmentUpdate;
 import vn.edu.stu.backend_service.controller.response.department.DepartmentPageResponse;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
+import vn.edu.stu.backend_service.model.PositionEntity;
 
 import java.util.List;
 
@@ -15,4 +17,6 @@ public interface DepartmentService {
     DepartmentEntity getDepartmentByName(String name);
     DepartmentPageResponse getAllDepartments(String keyword, String sort, int page, int size);
     List<DepartmentEntity> getAllDepartments();
+    List<EmployeeEntity> getAllEmployeeByDepartmentId(Long id);
+    List<PositionEntity> getAllPositionByDepartmentId(Long id);
 }

@@ -15,7 +15,9 @@ import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
 import vn.edu.stu.backend_service.mapper.EmployeeMapper;
+import vn.edu.stu.backend_service.model.ContractEntity;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
+import vn.edu.stu.backend_service.model.SalaryEntity;
 import vn.edu.stu.backend_service.service.EmployeeService;
 
 import java.util.List;
@@ -72,5 +74,23 @@ public class EmployeeController {
 
         List<EmployeeEntity> employeeEntities = employeeService.getAllEmployee();
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all employee successful", employeeMapper.toMapListEmployee(employeeEntities));
+    }
+
+    @Operation(summary = "Get all salary by employee id ", description = "API get all salary by employee id to database")
+    @GetMapping("/employee-salary/{id}")
+    public ResponseSuccess<?> getAllSalaryByEmployeeId(@Min(1) @PathVariable Long id) {
+        log.info("Get all salary by employee id : {}", id);
+
+       List<SalaryEntity> salaryEntities = employeeService.getAllSalaryByEmployeeId(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all salary by employee id successful", employeeMapper.toMapSalaryByEmployee(salaryEntities));
+    }
+
+    @Operation(summary = "Get all contract by employee id ", description = "API get all contract by employee id to database")
+    @GetMapping("/employee-contract/{id}")
+    public ResponseSuccess<?> getAllContractByEmployeeId(@Min(1) @PathVariable Long id) {
+        log.info("Get all contract by employee id : {}", id);
+
+        List<ContractEntity> contractEntities = employeeService.getAllContractByEmployeeId(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all contract by employee id successful", employeeMapper.toMapContractByEmployee(contractEntities));
     }
 }

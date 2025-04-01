@@ -16,10 +16,7 @@ import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
 import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.EmployeeMapper;
-import vn.edu.stu.backend_service.model.DepartmentEntity;
-import vn.edu.stu.backend_service.model.EmployeeEntity;
-import vn.edu.stu.backend_service.model.PositionEntity;
-import vn.edu.stu.backend_service.model.UserEntity;
+import vn.edu.stu.backend_service.model.*;
 import vn.edu.stu.backend_service.repository.EmployeeRepository;
 import vn.edu.stu.backend_service.service.DepartmentService;
 import vn.edu.stu.backend_service.service.EmployeeService;
@@ -144,5 +141,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeEntity> getAllEmployee() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public List<SalaryEntity> getAllSalaryByEmployeeId(Long id) {
+        EmployeeEntity employee = getEmployeeById(id);
+
+        if(employee != null){
+           return employee.getSalaries();
+        }
+        return null;
+    }
+
+    @Override
+    public List<ContractEntity> getAllContractByEmployeeId(Long id) {
+        EmployeeEntity employee = getEmployeeById(id);
+
+        if(employee != null){
+            return employee.getContracts();
+        }
+        return null;
     }
 }

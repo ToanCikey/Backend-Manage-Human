@@ -16,6 +16,8 @@ import vn.edu.stu.backend_service.controller.response.department.DepartmentPageR
 import vn.edu.stu.backend_service.controller.response.department.DepartmentResponse;
 import vn.edu.stu.backend_service.mapper.DepartmentMapper;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
+import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.service.DepartmentService;
 
 import java.util.List;
@@ -74,6 +76,24 @@ public class DepartmentController {
 
         List<DepartmentEntity> departmentEntities = departmentService.getAllDepartments();
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all department successful", departmentMapper.toMapListDepartment(departmentEntities));
+    }
+
+    @Operation(summary = "Get all employee by department id", description = "API get all employee by department id to database")
+    @GetMapping("/department-employee/{id}")
+    public ResponseSuccess<?> getAllEmployeeByDepartment(@Min(1) @PathVariable Long id) {
+        log.info("Get all employee by department id : {}", id);
+
+        List<EmployeeEntity> employeeEntities = departmentService.getAllEmployeeByDepartmentId(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all employee by department id successful", departmentMapper.toMapEmployeeByDepartment(employeeEntities));
+    }
+
+    @Operation(summary = "Get all position by department id", description = "API get all position by department id to database")
+    @GetMapping("/department-position/{id}")
+    public ResponseSuccess<?> getAllPositionByDepartment(@Min(1) @PathVariable Long id) {
+        log.info("Get all employee by department id : {}", id);
+
+        List<PositionEntity> positionEntities = departmentService.getAllPositionByDepartmentId(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all position by department id successful", departmentMapper.toMapPositionByDepartment(positionEntities));
     }
 
 }

@@ -16,6 +16,8 @@ import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.DepartmentMapper;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
+import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.repository.DepartmentRepository;
 import vn.edu.stu.backend_service.service.DepartmentService;
 import vn.edu.stu.backend_service.specification.DepartmentSpecification;
@@ -114,5 +116,23 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<DepartmentEntity> getAllDepartments() {
         return departmentRepository.findAll();
+    }
+
+    @Override
+    public List<EmployeeEntity> getAllEmployeeByDepartmentId(Long id) {
+       DepartmentEntity department = getDepartmentById(id);
+       if (department != null){
+           return department.getEmployees();
+       }
+       return null;
+    }
+
+    @Override
+    public List<PositionEntity> getAllPositionByDepartmentId(Long id) {
+        DepartmentEntity department = getDepartmentById(id);
+        if (department != null){
+            return department.getPositions();
+        }
+        return null;
     }
 }

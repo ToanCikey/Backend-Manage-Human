@@ -3,12 +3,15 @@ package vn.edu.stu.backend_service.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.stu.backend_service.controller.request.PassWordRequest;
 import vn.edu.stu.backend_service.controller.request.UserCreationRequest;
 import vn.edu.stu.backend_service.controller.request.UserUpdateRequest;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
@@ -17,7 +20,6 @@ import vn.edu.stu.backend_service.controller.response.user.UserRespone;
 import vn.edu.stu.backend_service.mapper.UserMapper;
 import vn.edu.stu.backend_service.model.UserEntity;
 import vn.edu.stu.backend_service.service.UserService;
-
 import java.util.List;
 
 
@@ -73,6 +75,15 @@ public class UserController {
         log.info("Update User: {}", request);
         userService.updateUser(request);
         return new ResponseSuccess<>(HttpStatus.NO_CONTENT.value(),"Update User successful");
+    }
+
+    @Operation(summary = "Get user detail ", description = "API get user detail to database")
+    @PostMapping("/user-detail")
+    public ResponseSuccess<?> getUserDetail(@RequestParam @Email(message = "Invalid email format") @NotBlank(message = "Email cannot be blank") String email) {
+        log.info("Get user detail: {}");
+
+        UserEntity user = userService.getUserByDetail(email);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get user detail successful", userMapper.toUserDetailResponse(user));
     }
 
 }
