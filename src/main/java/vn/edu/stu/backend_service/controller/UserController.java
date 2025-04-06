@@ -18,6 +18,7 @@ import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
 import vn.edu.stu.backend_service.controller.response.user.UserPageResponse;
 import vn.edu.stu.backend_service.controller.response.user.UserRespone;
 import vn.edu.stu.backend_service.mapper.UserMapper;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.UserEntity;
 import vn.edu.stu.backend_service.service.UserService;
 import java.util.List;
@@ -85,5 +86,15 @@ public class UserController {
         UserEntity user = userService.getUserByDetail(email);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get user detail successful", userMapper.toUserDetailResponse(user));
     }
+
+    @Operation(summary = "Get employee detail by user id  ", description = "API get employee detail by user id to database")
+    @GetMapping("/user-employee/{id}")
+    public ResponseSuccess<?> getEmployeeByUserId(@Min(1) @PathVariable Long id) {
+        log.info("Get employee detail by user id: {}");
+
+        EmployeeEntity employee = userService.getEmployeeByUserId(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get employee detail by user id successful", userMapper.toEmployeeByUserId(employee));
+    }
+
 
 }

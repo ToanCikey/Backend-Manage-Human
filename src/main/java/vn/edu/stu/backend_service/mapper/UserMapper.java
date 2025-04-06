@@ -3,8 +3,11 @@ package vn.edu.stu.backend_service.mapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
+import vn.edu.stu.backend_service.controller.response.user.EmployeeByUserResponse;
 import vn.edu.stu.backend_service.controller.response.user.UserDetailResponse;
 import vn.edu.stu.backend_service.controller.response.user.UserRespone;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.UserEntity;
 
 import java.util.List;
@@ -28,5 +31,10 @@ public class UserMapper {
         return modelMapper.map(user, UserDetailResponse.class);
     }
 
+    public EmployeeByUserResponse toEmployeeByUserId(EmployeeEntity employee) {
+        EmployeeByUserResponse employeeByUserResponse = new EmployeeByUserResponse();
+        employeeByUserResponse.setEmployee(modelMapper.map(employee, EmployeeResponse.class));
 
+        return employeeByUserResponse;
+    }
 }

@@ -17,6 +17,7 @@ import vn.edu.stu.backend_service.controller.response.user.UserRespone;
 import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.UserMapper;
+import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.UserEntity;
 import vn.edu.stu.backend_service.repository.UserRepository;
 import vn.edu.stu.backend_service.service.UserService;
@@ -136,5 +137,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User with email = " + email +" not found"));
     }
 
+    @Override
+    public EmployeeEntity getEmployeeByUserId(Long id) {
+        UserEntity userEntity = getUserById(id);
 
+        if(userEntity != null){
+            return userEntity.getEmployee();
+        }
+        return null;
+    }
 }
