@@ -21,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeMapper {
     private final ModelMapper modelMapper;
+    private final PositionMapper positionMapper;
+    private final DepartmentMapper departmentMapper;
 
     public EmployeeResponse toMapEmployee(EmployeeEntity employeeEntity) {
         return modelMapper.map(employeeEntity, EmployeeResponse.class);
@@ -53,11 +55,11 @@ public class EmployeeMapper {
         modelMapper.map(employee, response);
 
         if(employee.getPosition() != null){
-            response.setPositionName(employee.getPosition().getName());
+            response.setPosition(positionMapper.toPositionRespone(employee.getPosition()));
         }
 
         if(employee.getPosition().getDepartment() != null){
-            response.setDepartmentName(employee.getPosition().getDepartment().getName());
+           response.setDepartment(departmentMapper.toMapDepartment(employee.getPosition().getDepartment()));
         }
         return response;
     }

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import vn.edu.stu.backend_service.common.EmployeeStatus;
 import vn.edu.stu.backend_service.common.Gender;
+import vn.edu.stu.backend_service.controller.response.department.DepartmentResponse;
+import vn.edu.stu.backend_service.controller.response.position.PositionResponse;
 
 import java.time.LocalDateTime;
 
@@ -14,9 +16,9 @@ public class EmployeeDetailResponse {
 
     private String fullName;
 
-    private String positionName;
+    private PositionResponse position;
 
-    private String departmentName;
+    private DepartmentResponse department;
 
     private LocalDateTime dateOfBirth;
 
