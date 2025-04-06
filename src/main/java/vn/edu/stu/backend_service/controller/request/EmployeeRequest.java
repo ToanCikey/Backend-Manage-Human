@@ -45,6 +45,4 @@ public class EmployeeRequest implements Serializable {
     @Min(value = 1, message = "PositionId must be at least 1")
     private Long positionId;
 
-    @Min(value = 1, message = "DepartmentId must be at least 1")
-    private Long departmentId;
 }

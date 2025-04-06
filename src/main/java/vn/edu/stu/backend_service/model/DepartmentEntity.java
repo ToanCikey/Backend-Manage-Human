@@ -34,8 +34,5 @@ public class DepartmentEntity {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<EmployeeEntity> employees;
-
-    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PositionEntity> positions;
 }

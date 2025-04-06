@@ -1,6 +1,5 @@
 package vn.edu.stu.backend_service.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -56,10 +55,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             PositionEntity position = positionService.getPositionById(employee.getPositionId());
             employeeEntity.setPosition(position);
         }
-        if(employee.getDepartmentId() != null){
-            DepartmentEntity department = departmentService.getDepartmentById(employee.getDepartmentId());
-            employeeEntity.setDepartment(department);
-        }
 
         employeeRepository.save(employeeEntity);
         log.info("Saving employee {}", employee);
@@ -87,10 +82,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             if(employee.getPositionId() != null){
                 PositionEntity position = positionService.getPositionById(employee.getPositionId());
                 employeeEntity.setPosition(position);
-            }
-            if(employee.getDepartmentId() != null){
-                DepartmentEntity department = departmentService.getDepartmentById(employee.getDepartmentId());
-                employeeEntity.setDepartment(department);
             }
 
             employeeRepository.save(employeeEntity);

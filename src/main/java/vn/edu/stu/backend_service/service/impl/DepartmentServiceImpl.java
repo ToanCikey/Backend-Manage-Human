@@ -16,7 +16,6 @@ import vn.edu.stu.backend_service.exception.InvalidDataException;
 import vn.edu.stu.backend_service.exception.ResourceNotFoundException;
 import vn.edu.stu.backend_service.mapper.DepartmentMapper;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
-import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.PositionEntity;
 import vn.edu.stu.backend_service.repository.DepartmentRepository;
 import vn.edu.stu.backend_service.service.DepartmentService;
@@ -70,10 +69,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         DepartmentEntity departmentEntity = getDepartmentById(id);
         if (departmentEntity != null) {
-            if(departmentEntity.getEmployees().isEmpty() && departmentEntity.getPositions().isEmpty()) {
+            if(departmentEntity.getPositions().isEmpty()) {
                 departmentRepository.delete(departmentEntity);
             }else{
-                throw new InvalidDataException("Cannot delete department because it contains employee and position table constraints");
+                throw new InvalidDataException("Cannot delete department because it contains position table constraints");
             }
         }
 
@@ -118,14 +117,6 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.findAll();
     }
 
-    @Override
-    public List<EmployeeEntity> getAllEmployeeByDepartmentId(Long id) {
-       DepartmentEntity department = getDepartmentById(id);
-       if (department != null){
-           return department.getEmployees();
-       }
-       return null;
-    }
 
     @Override
     public List<PositionEntity> getAllPositionByDepartmentId(Long id) {

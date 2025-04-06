@@ -68,7 +68,4 @@ public class EmployeeEntity {
     @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ContractEntity> contracts;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private DepartmentEntity department;
 }
