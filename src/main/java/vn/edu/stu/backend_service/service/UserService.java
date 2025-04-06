@@ -1,5 +1,6 @@
 package vn.edu.stu.backend_service.service;
 
+import org.springframework.data.jpa.repository.Query;
 import vn.edu.stu.backend_service.controller.request.PassWordRequest;
 import vn.edu.stu.backend_service.controller.request.UserCreationRequest;
 import vn.edu.stu.backend_service.controller.request.UserUpdateRequest;
@@ -22,4 +23,5 @@ public interface UserService {
     UserPageResponse getAllUsers(String keyword, String sort, int page, int size);
     UserEntity getUserByDetail(String email);
     EmployeeEntity getEmployeeByUserId(Long id);
+    List<UserEntity> getAllUserNullEmployee();
 }

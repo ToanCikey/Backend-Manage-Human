@@ -2,6 +2,7 @@ package vn.edu.stu.backend_service.service;
 
 import vn.edu.stu.backend_service.controller.request.EmployeeRequest;
 import vn.edu.stu.backend_service.controller.request.EmployeeUpdate;
+import vn.edu.stu.backend_service.controller.response.employee.EmployeeDetailResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.model.ContractEntity;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
@@ -19,4 +20,5 @@ public interface EmployeeService {
     List<EmployeeEntity> getAllEmployee();
     List<SalaryEntity> getAllSalaryByEmployeeId(Long id);
     List<ContractEntity> getAllContractByEmployeeId(Long id);
+    EmployeeEntity getEmployeeDetail(Long id);
 }

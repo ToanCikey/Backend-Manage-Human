@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.stu.backend_service.controller.request.EmployeeRequest;
 import vn.edu.stu.backend_service.controller.request.EmployeeUpdate;
 import vn.edu.stu.backend_service.controller.response.ResponseSuccess;
+import vn.edu.stu.backend_service.controller.response.employee.EmployeeDetailResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
 import vn.edu.stu.backend_service.mapper.EmployeeMapper;
@@ -93,4 +94,15 @@ public class EmployeeController {
         List<ContractEntity> contractEntities = employeeService.getAllContractByEmployeeId(id);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all contract by employee id successful", employeeMapper.toMapContractByEmployee(contractEntities));
     }
+
+    @Operation(summary = "Get employee detail ", description = "API employee detail to database")
+    @GetMapping("/employee-detail/{id}")
+    public ResponseSuccess<?> getEmployeeDetail(@Min(1) @PathVariable Long id) {
+        log.info("Get employee detail : {}", id);
+
+        EmployeeEntity employee = employeeService.getEmployeeDetail(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get employee detail successful", employeeMapper.toMapEmployeeDetailResponse(employee));
+    }
+
+
 }

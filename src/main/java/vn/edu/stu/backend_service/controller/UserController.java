@@ -96,5 +96,14 @@ public class UserController {
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get employee detail by user id successful", userMapper.toEmployeeByUserId(employee));
     }
 
+    @Operation(summary = "Get all user is null employee  ", description = "API  all user is null employee to database")
+    @GetMapping("/user-nullemployee")
+    public ResponseSuccess<?> getAllUserIsNullEmployee() {
+        log.info("Get all user is null employee: {}");
+
+        List<UserEntity> users = userService.getAllUserNullEmployee();
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all user is null employee successful", userMapper.toListUserRespone(users));
+    }
+
 
 }

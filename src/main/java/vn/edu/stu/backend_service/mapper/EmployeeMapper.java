@@ -5,12 +5,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import vn.edu.stu.backend_service.controller.response.contract.ContractResponse;
 import vn.edu.stu.backend_service.controller.response.employee.ContractByEmployeeResponse;
+import vn.edu.stu.backend_service.controller.response.employee.EmployeeDetailResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
 import vn.edu.stu.backend_service.controller.response.employee.SalaryByEmployeeResponse;
 import vn.edu.stu.backend_service.controller.response.salary.SalaryResponse;
+import vn.edu.stu.backend_service.controller.response.user.UserDetailResponse;
 import vn.edu.stu.backend_service.model.ContractEntity;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.SalaryEntity;
+import vn.edu.stu.backend_service.model.UserEntity;
 
 import java.util.List;
 
@@ -42,6 +45,20 @@ public class EmployeeMapper {
         response.setContracts(contractEntities.stream()
                 .map(contract -> modelMapper.map(contract, ContractResponse.class))
                 .toList());
+        return response;
+    }
+
+    public EmployeeDetailResponse toMapEmployeeDetailResponse(EmployeeEntity employee) {
+        EmployeeDetailResponse response = new EmployeeDetailResponse();
+        modelMapper.map(employee, response);
+
+        if(employee.getPosition() != null){
+            response.setPositionName(employee.getPosition().getName());
+        }
+
+        if(employee.getPosition().getDepartment() != null){
+            response.setDepartmentName(employee.getPosition().getDepartment().getName());
+        }
         return response;
     }
 

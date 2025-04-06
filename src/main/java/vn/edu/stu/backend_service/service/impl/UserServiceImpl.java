@@ -146,4 +146,9 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public List<UserEntity> getAllUserNullEmployee() {
+        return userRepository.getAllUserNotEmployee();
+    }
 }

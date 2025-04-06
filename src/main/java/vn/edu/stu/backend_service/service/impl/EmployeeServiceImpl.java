@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vn.edu.stu.backend_service.controller.request.EmployeeRequest;
 import vn.edu.stu.backend_service.controller.request.EmployeeUpdate;
+import vn.edu.stu.backend_service.controller.response.employee.EmployeeDetailResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
 import vn.edu.stu.backend_service.exception.InvalidDataException;
@@ -152,5 +153,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             return employee.getContracts();
         }
         return null;
+    }
+
+    @Override
+    public EmployeeEntity getEmployeeDetail(Long id) {
+        return getEmployeeById(id);
     }
 }
