@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 public class EmployeeResponse {
     private Long id;
 
+    private String positionName;
+
     private String fullName;
 
     private LocalDateTime dateOfBirth;

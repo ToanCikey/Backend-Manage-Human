@@ -18,4 +18,5 @@ public interface DepartmentService {
     DepartmentPageResponse getAllDepartments(String keyword, String sort, int page, int size);
     List<DepartmentEntity> getAllDepartments();
     List<PositionEntity> getAllPositionByDepartmentId(Long id);
+    List<EmployeeEntity> getEmployeeByDepartmentId(Long id);
 }

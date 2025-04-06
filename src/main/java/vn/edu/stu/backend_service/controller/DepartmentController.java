@@ -83,7 +83,7 @@ public class DepartmentController {
     public ResponseSuccess<?> getAllEmployeeByDepartment(@Min(1) @PathVariable Long id) {
         log.info("Get all employee by department id : {}", id);
 
-        List<EmployeeEntity> employeeEntities = departmentService.getAllEmployeeByDepartmentId(id);
+        List<EmployeeEntity> employeeEntities = departmentService.getEmployeeByDepartmentId(id);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all employee by department id successful", departmentMapper.toMapEmployeeByDepartment(employeeEntities));
     }
 

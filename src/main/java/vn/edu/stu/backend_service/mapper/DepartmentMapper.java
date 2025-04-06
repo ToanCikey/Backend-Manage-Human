@@ -12,7 +12,9 @@ import vn.edu.stu.backend_service.model.DepartmentEntity;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.PositionEntity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -31,8 +33,14 @@ public class DepartmentMapper {
 
     public EmployeeByDepartmentResponse toMapEmployeeByDepartment(List<EmployeeEntity> employeeEntity) {
         EmployeeByDepartmentResponse employee = new EmployeeByDepartmentResponse();
-        employee.setEmployees(employeeEntity.stream().map((e)->
-                modelMapper.map(e, EmployeeResponse.class)).toList());
+
+        List<EmployeeResponse> list = new ArrayList<>();
+        for (EmployeeEntity entity : employeeEntity) {
+            EmployeeResponse employeeResponse = modelMapper.map(entity, EmployeeResponse.class);
+            employeeResponse.setPositionName(entity.getPosition().getName());
+            list.add(employeeResponse);
+        }
+        employee.setEmployees(list);
         return employee;
     }
 
