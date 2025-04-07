@@ -3,7 +3,9 @@ package vn.edu.stu.backend_service.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,13 @@ import vn.edu.stu.backend_service.controller.response.employee.EmployeeDetailRes
 import vn.edu.stu.backend_service.controller.response.employee.EmployeePageResponse;
 import vn.edu.stu.backend_service.controller.response.employee.EmployeeResponse;
 import vn.edu.stu.backend_service.mapper.EmployeeMapper;
+import vn.edu.stu.backend_service.mapper.UserMapper;
 import vn.edu.stu.backend_service.model.ContractEntity;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
 import vn.edu.stu.backend_service.model.SalaryEntity;
+import vn.edu.stu.backend_service.model.UserEntity;
 import vn.edu.stu.backend_service.service.EmployeeService;
+import vn.edu.stu.backend_service.service.UserService;
 
 import java.util.List;
 
@@ -32,6 +37,8 @@ import java.util.List;
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeMapper employeeMapper;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     @Operation(summary = "Create Employee", description = "API add new employee to database")
     @PostMapping("/add")
@@ -104,5 +111,12 @@ public class EmployeeController {
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get employee detail successful", employeeMapper.toMapEmployeeDetailResponse(employee));
     }
 
+    @Operation(summary = "Get user detail by user id ", description = "API get user detail by user id to database")
+    @PostMapping("/user-detail")
+    public ResponseSuccess<?> getUserDetail(@RequestParam @Email(message = "Invalid email format") @NotBlank(message = "Email cannot be blank") String email) {
+        log.info("Get user detail by user id: {}");
 
+        UserEntity user = userService.getUserByDetail(email);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get user detail by user id successful", userMapper.toUserDetailResponse(user));
+    }
 }
