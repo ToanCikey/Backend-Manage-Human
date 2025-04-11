@@ -23,6 +23,8 @@ public class ContractResponse {
 
     private String notes;
 
+    private Long employeeId;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

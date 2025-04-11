@@ -10,9 +10,9 @@ spring:
   devtools:
     add-properties: true
   datasource:
-    url: jdbc:mysql://backend-service-server.mysql.database.azure.com:3306/backend-service-database?useSSL=true&requireSSL=true&serverTimezone=UTC
-    username: hnvsudenxn
-    password: C$6CTCafFYCz5nyg
+    url: jdbc:mysql://localhost:3306/quanlynhansu
+    username: root
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     properties:

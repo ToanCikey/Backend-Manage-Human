@@ -14,7 +14,14 @@ public class SalaryMapper {
     private final ModelMapper modelMapper;
 
     public SalaryResponse toMapSlaResponse(SalaryEntity salaryEntity) {
-        return modelMapper.map(salaryEntity, SalaryResponse.class);
+        SalaryResponse salaryResponse = new SalaryResponse();
+        modelMapper.map(salaryEntity, salaryResponse);
+
+        if(salaryEntity.getEmployee() != null) {
+            salaryResponse.setEmployeeId(salaryEntity.getEmployee().getId());
+        }
+
+        return salaryResponse;
     }
 
     public List<SalaryResponse> toMapSalaryList(List<SalaryEntity> salaryEntityList) {

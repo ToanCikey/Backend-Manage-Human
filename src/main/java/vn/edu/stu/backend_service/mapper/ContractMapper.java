@@ -14,7 +14,13 @@ public class ContractMapper {
     private final ModelMapper modelMapper;
 
     public ContractResponse toMapContract(ContractEntity contractEntity) {
-        return modelMapper.map(contractEntity, ContractResponse.class);
+        ContractResponse contractResponse = new ContractResponse();
+        modelMapper.map(contractEntity, contractResponse);
+
+        if(contractEntity.getEmployee() != null) {
+            contractResponse.setEmployeeId(contractEntity.getEmployee().getId());
+        }
+        return contractResponse;
     }
 
     public List<ContractResponse> toMapListContract(List<ContractEntity> contractEntityList) {

@@ -17,6 +17,8 @@ public class SalaryResponse {
 
     private LocalDateTime effectiveDate;
 
+    private Long employeeId;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

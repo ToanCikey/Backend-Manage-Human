@@ -18,7 +18,12 @@ public class PositionMapper {
     private final ModelMapper modelMapper;
 
     public PositionResponse toPositionRespone(PositionEntity position) {
-        return modelMapper.map(position, PositionResponse.class);
+        PositionResponse positionResponse = new PositionResponse();
+        modelMapper.map(position, positionResponse);
+        if(position.getDepartment() != null){
+            positionResponse.setDepartmentId(position.getDepartment().getId());
+        }
+        return positionResponse;
     }
 
     public List<PositionResponse> toPositionResponesList(List<PositionEntity> positionEntities) {
