@@ -18,6 +18,8 @@ public class EmployeeResponse {
 
     private String positionName;
 
+    private Long userId;
+
     private String fullName;
 
     private LocalDateTime dateOfBirth;

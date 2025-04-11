@@ -25,7 +25,13 @@ public class EmployeeMapper {
     private final DepartmentMapper departmentMapper;
 
     public EmployeeResponse toMapEmployee(EmployeeEntity employeeEntity) {
-        return modelMapper.map(employeeEntity, EmployeeResponse.class);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        modelMapper.map(employeeEntity, employeeResponse);
+
+        if(employeeEntity.getUser() != null) {
+            employeeResponse.setUserId(employeeEntity.getUser().getId());
+        }
+        return employeeResponse;
     }
 
     public List<EmployeeResponse> toMapListEmployee(List<EmployeeEntity> employeeEntities) {
