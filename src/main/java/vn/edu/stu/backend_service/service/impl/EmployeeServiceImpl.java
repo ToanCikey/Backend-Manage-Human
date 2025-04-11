@@ -159,4 +159,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeEntity getEmployeeDetail(Long id) {
         return getEmployeeById(id);
     }
+
+    @Override
+    public long totalEmployee() {
+        return employeeRepository.count();
+    }
 }

@@ -21,4 +21,5 @@ public interface EmployeeService {
     List<SalaryEntity> getAllSalaryByEmployeeId(Long id);
     List<ContractEntity> getAllContractByEmployeeId(Long id);
     EmployeeEntity getEmployeeDetail(Long id);
+    long totalEmployee();
 }

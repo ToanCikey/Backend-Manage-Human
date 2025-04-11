@@ -76,5 +76,14 @@ public class ContractController {
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all contracts successful", contractMapper.toMapListContract(contractEntities));
     }
 
+    @Operation(summary = "Get contract by id", description = "API contract by id to database")
+    @GetMapping("/{id}")
+    public ResponseSuccess<?> getContractById(@Min(1) @PathVariable Long id) {
+        log.info("Get contract by id : {}");
+
+        ContractEntity contractEntity = contractService.getContractById(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get contract by id successful", contractMapper.toMapContract(contractEntity));
+    }
+
 
 }

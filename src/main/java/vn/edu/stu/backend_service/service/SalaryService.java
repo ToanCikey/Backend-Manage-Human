@@ -14,4 +14,5 @@ public interface SalaryService {
     SalaryPageResponse getAllSalaries(String keyword, String sort, int page, int size);
     SalaryEntity getSalaryById(Long id);
     List<SalaryEntity> getAllSalaries();
+    long totalSalaries();
 }

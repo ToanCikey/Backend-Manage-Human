@@ -83,4 +83,13 @@ public class PositionController {
         List<EmployeeEntity> entities = positionService.getEmployeeByPositionId(id);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all employee by position id successful", positionMapper.toEmployeeByPositionId(entities));
     }
+
+    @Operation(summary = "Get position by id", description = "API get position by id to database")
+    @GetMapping("/{id}")
+    public ResponseSuccess<?> getPositionById(@Min(1) @PathVariable Long id) {
+        log.info("Get position by id: {}");
+
+        PositionEntity position = positionService.getPositionById(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get position by id successful", positionMapper.toPositionRespone(position));
+    }
 }

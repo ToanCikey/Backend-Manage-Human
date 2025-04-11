@@ -96,4 +96,13 @@ public class DepartmentController {
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all position by department id successful", departmentMapper.toMapPositionByDepartment(positionEntities));
     }
 
+    @Operation(summary = "Get department by id", description = "API department by id to database")
+    @GetMapping("/{id}")
+    public ResponseSuccess<?> getDepartmentById(@Min(1) @PathVariable Long id) {
+        log.info("Get department by id: {}", id);
+
+        DepartmentEntity departmentEntity = departmentService.getDepartmentById(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get department by id successful", departmentMapper.toMapDepartment(departmentEntity));
+    }
+
 }

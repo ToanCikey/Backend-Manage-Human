@@ -2,6 +2,7 @@ package vn.edu.stu.backend_service.service;
 
 import vn.edu.stu.backend_service.controller.request.DepartmentRequest;
 import vn.edu.stu.backend_service.controller.request.DepartmentUpdate;
+import vn.edu.stu.backend_service.controller.response.department.DepartmentDetailResponse;
 import vn.edu.stu.backend_service.controller.response.department.DepartmentPageResponse;
 import vn.edu.stu.backend_service.model.DepartmentEntity;
 import vn.edu.stu.backend_service.model.EmployeeEntity;
@@ -19,4 +20,6 @@ public interface DepartmentService {
     List<DepartmentEntity> getAllDepartments();
     List<PositionEntity> getAllPositionByDepartmentId(Long id);
     List<EmployeeEntity> getEmployeeByDepartmentId(Long id);
+    long totalDepartments();
+    List<DepartmentDetailResponse> getDepartmentDetail();
 }

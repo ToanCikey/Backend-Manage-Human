@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import vn.edu.stu.backend_service.controller.request.DepartmentRequest;
 import vn.edu.stu.backend_service.controller.request.DepartmentUpdate;
+import vn.edu.stu.backend_service.controller.response.department.DepartmentDetailResponse;
 import vn.edu.stu.backend_service.controller.response.department.DepartmentPageResponse;
 import vn.edu.stu.backend_service.controller.response.department.DepartmentResponse;
 import vn.edu.stu.backend_service.exception.InvalidDataException;
@@ -131,5 +132,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<EmployeeEntity> getEmployeeByDepartmentId(Long id) {
         return departmentRepository.getAllEmployeeByDepartmentId(id);
+    }
+
+    @Override
+    public long totalDepartments() {
+        return departmentRepository.count();
+    }
+
+    @Override
+    public List<DepartmentDetailResponse> getDepartmentDetail() {
+        return departmentRepository.getDepartmentDetails();
     }
 }

@@ -117,4 +117,9 @@ public class ContractServiceImpl implements ContractService {
     public List<ContractEntity> getAllContracts() {
         return contractRepository.findAll();
     }
+
+    @Override
+    public long totalContracts() {
+        return contractRepository.count();
+    }
 }

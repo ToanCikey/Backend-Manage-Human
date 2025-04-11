@@ -14,4 +14,5 @@ public interface ContractService {
     ContractPageResponse getAllContracts(String keyword, String sort, int page, int size);
     ContractEntity getContractById(Long id);
     List<ContractEntity> getAllContracts();
+    long totalContracts();
 }

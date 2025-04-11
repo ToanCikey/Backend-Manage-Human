@@ -15,11 +15,9 @@ public class ContractRequest implements Serializable {
     private ContractType contractType;
 
     @NotNull(message = "StartDate must not be null")
-    @Past(message = "StartDate must be in the past")
     private LocalDateTime startDate;
 
     @NotNull(message = "EndDate must not be null")
-    @Past(message = "EndDate must be in the past")
     private LocalDateTime endDate;
 
     @NotBlank(message = "Notes must be not blank")

@@ -151,4 +151,9 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> getAllUserNullEmployee() {
         return userRepository.getAllUserNotEmployee();
     }
+
+    @Override
+    public long totalUsers() {
+        return userRepository.count();
+    }
 }

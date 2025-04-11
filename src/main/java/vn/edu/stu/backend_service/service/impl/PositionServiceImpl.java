@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.stu.backend_service.controller.request.PositionRequest;
 import vn.edu.stu.backend_service.controller.request.PositionUpdateRequest;
+import vn.edu.stu.backend_service.controller.response.position.PositionDetailResponse;
 import vn.edu.stu.backend_service.controller.response.position.PositionPageRespone;
 import vn.edu.stu.backend_service.controller.response.position.PositionResponse;
 
@@ -136,5 +137,15 @@ public class PositionServiceImpl implements PositionService{
             return position.getEmployees();
         }
         return null;
+    }
+
+    @Override
+    public long totalPositions() {
+        return positionRepository.count();
+    }
+
+    @Override
+    public List<PositionDetailResponse> getAllPositionDetails() {
+        return positionRepository.getAllPositionDetails();
     }
 }

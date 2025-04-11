@@ -119,4 +119,13 @@ public class EmployeeController {
         UserEntity user = userService.getUserByDetail(email);
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get user detail by user id successful", userMapper.toUserDetailResponse(user));
     }
+
+    @Operation(summary = "Get employee by id ", description = "API employee by id to database")
+    @GetMapping("/{id}")
+    public ResponseSuccess<?> getEmployeeById(@Min(1) @PathVariable Long id) {
+        log.info("Get employee by id : {}", id);
+
+        EmployeeEntity employee = employeeService.getEmployeeById(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get employee by id successful", employeeMapper.toMapEmployee(employee));
+    }
 }

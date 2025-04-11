@@ -24,4 +24,5 @@ public interface UserService {
     UserEntity getUserByDetail(String email);
     EmployeeEntity getEmployeeByUserId(Long id);
     List<UserEntity> getAllUserNullEmployee();
+    long totalUsers();
 }

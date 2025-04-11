@@ -73,4 +73,13 @@ public class SalaryController {
         List<SalaryEntity> salaries = salaryService.getAllSalaries();
         return new ResponseSuccess<>(HttpStatus.OK.value(),"Get all salaries successful", salaryMapper.toMapSalaryList(salaries));
     }
+
+    @Operation(summary = "Get salary by id ", description = "API salary by id to database")
+    @GetMapping("/{id}")
+    public ResponseSuccess<?> getSalaryById(@Min(1) @PathVariable Long id) {
+        log.info("Get salary by id: {}");
+
+        SalaryEntity salary = salaryService.getSalaryById(id);
+        return new ResponseSuccess<>(HttpStatus.OK.value(),"Get salary by id successful", salaryMapper.toMapSlaResponse(salary));
+    }
 }

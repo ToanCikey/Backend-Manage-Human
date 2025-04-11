@@ -116,4 +116,9 @@ public class SalaryServiceImpl implements SalaryService {
     public List<SalaryEntity> getAllSalaries() {
         return salaryRepository.findAll();
     }
+
+    @Override
+    public long totalSalaries() {
+        return salaryRepository.count();
+    }
 }
