@@ -23,7 +23,6 @@ public class SalaryRequest implements Serializable {
     private Double allowance;
 
     @NotNull(message = "EffectiveDate must not be null")
-    @Past(message = "EffectiveDate must be in the past")
     private LocalDateTime effectiveDate;
 
     @NotNull(message = "EmployeeId must not be null")

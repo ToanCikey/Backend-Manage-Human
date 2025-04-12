@@ -27,7 +27,6 @@ public class SalaryUpdateRequest implements Serializable {
     private Double allowance;
 
     @NotNull(message = "EffectiveDate must not be null")
-    @Past(message = "EffectiveDate must be in the past")
     private LocalDateTime effectiveDate;
 
     @Min(value = 1, message = "Employee must be at least 1")
