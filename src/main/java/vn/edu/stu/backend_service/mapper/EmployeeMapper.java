@@ -31,6 +31,13 @@ public class EmployeeMapper {
         if(employeeEntity.getUser() != null) {
             employeeResponse.setUserId(employeeEntity.getUser().getId());
         }
+        if(employeeEntity.getPosition() != null){
+            employeeResponse.setPositionId(employeeEntity.getPosition().getId());
+        }
+        if(employeeEntity.getPosition().getDepartment() != null){
+            employeeResponse.setDepartmentId(employeeEntity.getPosition().getDepartment().getId());
+        }
+
         return employeeResponse;
     }
 
